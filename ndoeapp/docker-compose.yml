@@ -1,0 +1,25 @@
+version: '3'
+services:
+  nodeapp:
+    image: 'nodeapp'
+    ports:
+      - 8080:8080
+    labels:
+      - 'traefik.docker.network=proxy'
+      - 'traefik.enable=true'
+      - 'traefik.subdomain.port=8080'
+      - 'traefik.subdomain.protocol=http'
+    networks:
+      - proxy
+      - db
+  mongo:
+    image: mongo
+#    ports:
+#    - "27017:27017"
+    networks:
+      - db
+networks:
+  proxy:
+    external: true
+  db:
+    external: true

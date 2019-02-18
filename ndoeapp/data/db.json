@@ -1,0 +1,11 @@
+{
+  "ids": {
+    "Person": 3
+  },
+  "models": {
+    "Person": {
+      "1": "{\"id\":1,\"name\":\"string\"}",
+      "2": "{\"id\":2,\"name\":\"string\"}"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "rest",
+  "connector": "rest",
+  "baseURL": "",
+  "crud": true
+}
