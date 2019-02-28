@@ -4,7 +4,7 @@ import {NodeType} from './nodeType';
 
 export class RootNode {
 
-  constructor(public rootNode: HTMLElement, public rectNode: RectNode, public svgNode: any, ) {
+  constructor(public rootNode: HTMLElement, public rectNode: RectNode,  public svgNode: SvgNode, ) {
   }
 
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {RootNode} from '../models/rootNode';
 import {ParagraphNode} from '../models/paragraphNode';
+import {TextNode} from '../models/TextNode';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,8 @@ export class EventParserService {
   private parseTextNode(textNode: HTMLElement) {
     if (textNode.innerHTML.includes('TextParagraph')) {
       return this.parseParagraphNode(textNode);
+    } else {
+      return this.parseBulletPointNode(textNode);
     }
   }
 
@@ -58,6 +61,10 @@ export class EventParserService {
 
 
   private parseParagraphNode(textNode: HTMLElement) {
-    return new ParagraphNode(textNode, textNode.children[0], textNode.children[0].children);
+    return new ParagraphNode(new TextNode(textNode), textNode.children[0], textNode.children[0].children);
+  }
+
+  private parseBulletPointNode(textNode: HTMLElement) {
+    return new ParagraphNode(new TextNode(textNode), textNode, textNode.children);
   }
 }
