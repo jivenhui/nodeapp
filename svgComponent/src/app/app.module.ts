@@ -1,22 +1,23 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HttpClientModule }    from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SvgComponent } from './svg/svg.component';
-import { SafePipe } from './safe.pipe';
-import { Svg2Component } from './svg2/svg2.component';
-import { AdDirectiveDirective } from './directives/ad-directive.directive';
+import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+import { TitleComponent } from './elements/title/title.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SvgComponent,
-    SafePipe,
-    Svg2Component,
-    AdDirectiveDirective
+    SafeHtmlPipe,
+    TitleComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
