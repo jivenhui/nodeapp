@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { SvgComponent } from './svg/svg.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { TitleComponent } from './elements/title/title.component';
+import { ElementDirective } from './directives/element.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     SvgComponent,
     SafeHtmlPipe,
-    TitleComponent
+    TitleComponent,
+    ElementDirective
   ],
   imports: [
     BrowserModule,

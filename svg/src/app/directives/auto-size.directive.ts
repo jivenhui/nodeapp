@@ -1,9 +1,9 @@
 import { Directive } from '@angular/core';
 
 @Directive({
-  selector: '[appAdDirective]'
+  selector: '[appAutoSize]'
 })
-export class AdDirectiveDirective {
+export class AutoSizeDirective {
 
   constructor() { }
 

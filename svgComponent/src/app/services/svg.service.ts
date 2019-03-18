@@ -10,6 +10,6 @@ export class SvgService {
   constructor(private http: HttpClient) { }
 
   getSvg() {
-    return this.http.get('assets/svg.svg',{responseType: 'text'});
+    return this.http.get('assets/html.html', {responseType: 'text'});
   }
 }

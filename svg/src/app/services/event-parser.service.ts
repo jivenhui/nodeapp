@@ -1,70 +1,67 @@
 import { Injectable } from '@angular/core';
-import {RootNode} from '../models/rootNode';
-import {ParagraphNode} from '../models/paragraphNode';
-import {TextNode} from '../models/TextNode';
+import { RootElement } from '../models/rootElement';
+import { SvgElement } from '../models/svgElement';
+import { TitleElement } from '../models/elements/titleElement';
+import { TextElement } from '../models/elements/textElement';
+import { ToastrService } from 'ngx-toastr';
+import { ImageElement } from '../models/elements/imageElement';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventParserService {
-  private svgDom;
-  constructor() { }
+  public svgDom: Document;
+  constructor(public toastr: ToastrService) { }
 
   setSvgDom(svgDom) {
     this.svgDom = svgDom;
   }
 
-  parseEvent(event): RootNode {
-    // Search for nearest parent node with ID
-    let nodeId: string;
+  parseEvent(event): RootElement {
+    // Search for nearest parent element with ID
+    let elementId: string;
     for (let i = 0; i < event.path.length; i++) {
       if (event.path[i].id !== '') {
-        nodeId = event.path[i].id;
+        elementId = event.path[i].id;
         break;
       }
     }
-    // Search for clicked element in svgDom variable
-    const root = this.svgDom.getElementById(nodeId);
-    return this.parseToNodes(root);
-  }
-
-  private parseToNodes(root: HTMLElement): RootNode {
-    const rect = this.getNodeFromChildren(root.children, 'rect');
-    let svgNode;
-    if (this.getNodeFromChildren(root.children, 'text') !== null) {
-      svgNode = this.parseTextNode(this.getNodeFromChildren(root.children, 'text'));
-    }
-    const rootNode = new RootNode(root, rect, svgNode);
-    return rootNode;
-  }
-
-  private parseTextNode(textNode: HTMLElement) {
-    if (textNode.innerHTML.includes('TextParagraph')) {
-      return this.parseParagraphNode(textNode);
+    if (elementId === undefined) {
+      return undefined;
     } else {
-      return this.parseBulletPointNode(textNode);
+      // Search for clicked element in svgDom variable
+      const root = this.svgDom.getElementById(elementId);
+      return this.parseToRootElement(root);
     }
   }
 
-  getNodeFromChildren(children: HTMLCollection, nodeName: string) {
-    let node;
+  private parseToRootElement(root: HTMLElement): RootElement {
+    const rect = this.getElemetFromChildren(root.children, 'rect');
+    let svgElement: SvgElement;
+    if (root.id.includes('paragraph')) {
+      svgElement = new TextElement(this.getElemetFromChildren(root.children, 'foreignObject'));
+    } else if (root.id.includes('title')) {
+      svgElement = new TitleElement(this.getElemetFromChildren(root.children, 'foreignObject'));
+    } else if (root.id.includes('image')) {
+      svgElement = new ImageElement(this.getElemetFromChildren(root.children, 'image'));
+    } else {
+      this.toastr.warning('Selected element not editable');
+      return undefined;
+    }
+    const rootElement = new RootElement(root, rect, svgElement);
+    return rootElement;
+  }
+
+  getElemetFromChildren(children: HTMLCollection, elementName: string) {
+    let element;
     for (let i = 0; i < children.length; i++) {
-      if (children[i].nodeName === nodeName) {
-        node = children[i];
+      if (children[i].nodeName === elementName) {
+        element = children[i];
         break;
       } else {
-        node = null;
+        element = null;
       }
     }
-    return node;
-  }
-
-
-  private parseParagraphNode(textNode: HTMLElement) {
-    return new ParagraphNode(new TextNode(textNode), textNode.children[0], textNode.children[0].children);
-  }
-
-  private parseBulletPointNode(textNode: HTMLElement) {
-    return new ParagraphNode(new TextNode(textNode), textNode, textNode.children);
+    return element;
   }
 }

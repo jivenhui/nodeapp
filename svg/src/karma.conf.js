@@ -26,6 +26,12 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ['Chrome'],
-    singleRun: false
+    singleRun: false,
+    files: [
+      { pattern: './src/assets/**', watched: false, included:false, nocache:false, served:true }
+    ],
+    proxies: {
+      '/assets/': '/base/src/assets/'
+   },
   });
 };

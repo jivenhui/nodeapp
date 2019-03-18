@@ -1,0 +1,8 @@
+
+<div id="toolbar">
+    <app-tool (click)="bold()" icon="format_bold"></app-tool>
+    <app-tool (click)="italic()" icon="format_italic"></app-tool>
+    <app-tool (click)="ol()" icon="format_list_numbered"></app-tool>
+    <app-tool (click)="ul()" icon="format_list_bulleted"></app-tool>
+</div>
+<div id="text-editor" class="edit textbox paragraph" (input)="changeText($event.target.innerHTML)" contenteditable="true" [innerHTML]="text"></div>

@@ -1,15 +1,21 @@
-//svg tspan:hover {
-//  fill: rgb(152,152,152);
-//  cursor: pointer;
-//}
+// css for rect to be selected
 svg tspan {
-  fill: rgb(152,152,152);
   pointer-events: none;
 }
 
-svg tspan .selected {
-  fill: rgb(152,152,152);
+svg foreignObject {
+  pointer-events: none;
 }
+
+svg text {
+  pointer-events: none;
+}
+
+svg image {
+  pointer-events: none;
+}
+
+// selected rect
 svg rect:hover {
   fill: rgba(152,152,152,0.5);
   cursor: pointer;
@@ -22,6 +28,11 @@ svg rect {
   pointer-events: all;
 }
 
+.selected {
+  fill: rgba(152,152,152,0.5);
+}
+
+// css for
 .card:not(:first-child) {
   margin-top: 20px;
 }
@@ -35,6 +46,36 @@ svg rect {
   margin-left: 20px;
 }
 
-.selected {
-  fill: rgba(152,152,152,0.5);
+body {
+  background-color: #050a26;
+}
+
+.card {
+  background-color: #092138;
+}
+
+.svgEditor {
+  // margin: 5rem !important;
+  width: 60%;
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  background-color: white;
+}
+
+.svgEditor ol {
+  margin-left: 1em;
+}
+
+.svgEditor ul {
+  margin-left: 1em;
+}
+
+.text {
+  color: white;
+}
+
+.boxsizingBorder {
+  width: 100%;
+  white-space: pre-wrap;
 }
